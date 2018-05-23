@@ -13,6 +13,31 @@
     <ion-input type="text" [(ngModel)]="username"></ion-input>
   </ion-item>
 
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+
   <button ion-button block outline (click)="loginUser()">Login</button>
+
+  <ion-item>
+    <ion-label floating>Username</ion-label>
+    <ion-input type="text" [(ngModel)]="usernameSU"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Tel number</ion-label>
+    <ion-input type="tel" [(ngModel)]="ownNumber"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" [(ngModel)]="passwordSU"></ion-input>
+  </ion-item>
+
+  <button ion-button block outline (click)="signUp()">Sign Up</button>
+
+  <button ion-button block outline (click)="checkConnexion(username)">BDD</button>
+
 
 </ion-content>

@@ -12,9 +12,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { Contacts, Contact, ContactFieldType, ContactName } from '@ionic-native/contacts';
 
-
-var config = {
+export const config = {
   apiKey: "AIzaSyBV-lDTV8qeqkzg-Y9eBwVweCgXyUEyBpQ",
   authDomain: "joddle-30e4b.firebaseapp.com",
   databaseURL: "https://joddle-30e4b.firebaseio.com",
@@ -35,7 +36,8 @@ var config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,6 +48,8 @@ var config = {
   providers: [
     StatusBar,
     SplashScreen,
+    Contact,
+    Contacts,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

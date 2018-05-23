@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFirestore, FirebaseListObservable } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Contacts, Contact, ContactFieldType, ContactName } from '@ionic-native/contacts';
+
 
 // import { Observable } from 'rxjs';
 
@@ -19,19 +21,30 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ChatPage {
 
   username: string = '';
+  ownNumber;
   message: string = '';
-  s;
+  s: any;
   messages: object[] = [];
-  // latitude: double;
-  // longitude: double;
-  // distance: double;
+  password: any;
+  latitude: double;
+  longitude: double;
+  distance: double;
+  contactsFound = [];
 
-  constructor(public db: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public db: AngularFireDatabase, public navCtrl: NavController,
+    public navParams: NavParams, private contacts: Contacts) {
       console.log(this.navParams);
+      // this.fetchDeviceContact('');
       this.username = this.navParams.get('username');
-      this.s = this.db.list('/chat').valueChanges().subscribe( data => {
+      console.log(this.db);
+      console.log(this.db.list('/chat/'));
+      console.log(this.db.list('/chat/').valueChanges());
+      console.log(this.db.list('/chat/').valueChanges().subscribe());
+
+      this.s = this.db.list('/chat/').valueChanges().subscribe( data => {
         this.messages = data;
       });
+
     }
 
     sendMessage() {
@@ -44,15 +57,37 @@ export class ChatPage {
 
       }).then( () => {
         // message is sent
-      }).catch( () => {
-        // some error. maybe firebase is unreachable
       });
       this.message = '';
     }
 
-    convDeg2Rad(x) {
-      this.distance = Math.PI * x / 180;
+    fetchDeviceContact(g){
+
+	 	var options = {
+		    filter : g,
+		    multiple:true,
+		    hasPhoneNumber:true
+		};
+
+    this.contacts.find(["displayName"], options).then((conts) => {
+      this.contactsFound = conts;
+      console.log(this.contactsFound);
+      for(var contact of this.contactsFound) {
+        console.log(contact);
+        this.db.list('/contacts').push({
+          // Ajouter le numéro de téléphone de la personne qui a le 06
+          number: contact.phoneNumbers,
+          name: contact.displayName,
+          }).then( () => {
+            // Contact ajouté
+          });
+        }
+      })
     }
+
+    // convDeg2Rad(x) {
+    //   this.distance = Math.PI * x / 180;
+    // }
 
     // ionViewDidLoad() {
     //   this.db.list('/chat').push({
@@ -60,7 +95,7 @@ export class ChatPage {
     //     message: `${this.username} has joined the room`
     //   });
     // }
-
+    //
     // ionViewWillLeave(){
     //   console.log("ionViewWillLeave");
     //   this.s.unsubscribe();
@@ -70,4 +105,5 @@ export class ChatPage {
     //   });
     // }
 
-  }
+
+}
