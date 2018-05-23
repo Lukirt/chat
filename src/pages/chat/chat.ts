@@ -21,7 +21,6 @@ export class ChatPage {
   username: string = '';
   message: string = '';
   s;
-  m: object;
   messages: object[] = [];
   // latitude: double;
   // longitude: double;
@@ -31,15 +30,7 @@ export class ChatPage {
       console.log(this.navParams);
       this.username = this.navParams.get('username');
       this.s = this.db.list('/chat').valueChanges().subscribe( data => {
-        console.log(data);
-        console.log(this.m);
-        for(let d of data) {
-          if(this.username == d.username)
-            this.messages = data;
-            this.m = d;
-            console.log(this.messages);
-            console.log(this.m);
-        }
+        this.messages = data;
       });
     }
 
