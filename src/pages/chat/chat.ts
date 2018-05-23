@@ -21,27 +21,35 @@ export class ChatPage {
   username: string = '';
   message: string = '';
   s;
+  m: object;
   messages: object[] = [];
-  latitude: double;
-  longitude: double;
+  // latitude: double;
+  // longitude: double;
+  // distance: double;
 
   constructor(public db: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams) {
       console.log(this.navParams);
       this.username = this.navParams.get('username');
       this.s = this.db.list('/chat').valueChanges().subscribe( data => {
-        if(this.username == "dodo")
-          this.messages = data;
+        console.log(data);
+        console.log(this.m);
+        for(let d of data) {
+          if(this.username == d.username)
+            this.messages = data;
+            this.m = d;
+            console.log(this.messages);
+            console.log(this.m);
+        }
       });
     }
 
     sendMessage() {
-
       this.db.list('/chat').push({
 
         username: this.username,
         message: this.message,
-        latitude = this.latitude,
-        longitude = this.longitude
+        // latitude = this.latitude,
+        // longitude = this.longitude
 
       }).then( () => {
         // message is sent
@@ -51,6 +59,10 @@ export class ChatPage {
       this.message = '';
     }
 
+    convDeg2Rad(x) {
+      this.distance = Math.PI * x / 180;
+    }
+
     // ionViewDidLoad() {
     //   this.db.list('/chat').push({
     //     specialMessage: true,
@@ -58,13 +70,13 @@ export class ChatPage {
     //   });
     // }
 
-    ionViewWillLeave(){
-      console.log("ionViewWillLeave");
-      this._chatSubscription.unsubscribe();
-      this.db.list('/chat').push({
-        specialMessage: true,
-        message: `${this.username} has left the room`
-      });
-    }
+    // ionViewWillLeave(){
+    //   console.log("ionViewWillLeave");
+    //   this.s.unsubscribe();
+    //   this.db.list('/chat').push({
+    //     specialMessage: true,
+    //     message: `${this.username} has left the room`
+    //   });
+    // }
 
   }

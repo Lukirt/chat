@@ -16,7 +16,7 @@ Ionic pages and navigation.
 
   <div id="chatMessages">
     <div *ngFor="let message of messages" [class]="message.specialMessage ? 'message special' : 'message'">
-      <div [class]="message.username == username ? 'innerMessage messageRight' : 'innerMessage messageLeft'">
+      <div *ngIf="message.username == username" [class]="message.username == username ? 'innerMessage messageRight' : 'innerMessage messageLeft'">
         <div class="username">{{ message.username }}</div>
         <div class="messageContent">{{ message.message }}</div>
       </div>
