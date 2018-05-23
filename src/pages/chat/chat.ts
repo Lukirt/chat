@@ -26,9 +26,9 @@ export class ChatPage {
   s: any;
   messages: object[] = [];
   password: any;
-  latitude: double;
-  longitude: double;
-  distance: double;
+  // latitude: double;
+  // longitude: double;
+  // distance: double;
   contactsFound = [];
 
   constructor(public db: AngularFireDatabase, public navCtrl: NavController,
@@ -36,11 +36,6 @@ export class ChatPage {
       console.log(this.navParams);
       // this.fetchDeviceContact('');
       this.username = this.navParams.get('username');
-      console.log(this.db);
-      console.log(this.db.list('/chat/'));
-      console.log(this.db.list('/chat/').valueChanges());
-      console.log(this.db.list('/chat/').valueChanges().subscribe());
-
       this.s = this.db.list('/chat/').valueChanges().subscribe( data => {
         this.messages = data;
       });
