@@ -13,6 +13,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class HomePage {
 
     username: string = '';
+    password: string = '';
     // ownNumber;
     dataBase: any;
 
@@ -30,15 +31,31 @@ export class HomePage {
       alertBox.present();
     }
 
-    loginUser() {
-        if(/^[a-zA-Z0-9]+$/.test(this.username)) {
-          this.navCtrl.push(ChatPage, {
-              username: this.username,
-              // password: this.password
-          });
-        } else {
-            this.showAlert('Error', 'Invalid Username');
+    loginUser(username) {
+      let accountArray = [];
+      this.dataBase.ref('/user/').orderByChild('username').equalTo(username).once('value').then(snapshot => {
+        snapshot.forEach(account => {
+          accountArray.push(account.val());
+        })
+        for(var usrname of accountArray) {
+          // console.log(usrname.username);
+          // console.log(this.username);
+          // console.log(usrname.password);
+          // console.log(this.password);
+          if(usrname.username == this.username) {
+            if(usrname.password == this.password) {
+              console.log("Pseudo et mot de passe corrects")
+              this.navCtrl.push(ChatPage, {
+                username: this.username
+              });
+            } else {
+              this.showAlert('Error', 'Invalid Password');
+            }
+          } else {
+              this.showAlert('Error', 'Invalid Username');
+          }
         }
+      });
     }
 
     signUp() {
@@ -65,9 +82,19 @@ export class HomePage {
             accountArray.push(account.val());
           })
           for(var usrname of accountArray) {
-            console.log(usrname);
-            if(usrname.username == username) {
-              // this.navCtrl.push(ChatPage, {});
+            // console.log(usrname.username);
+            // console.log(this.username);
+            // console.log(usrname.password);
+            // console.log(this.password);
+            if(usrname.username == this.username) {
+              if(usrname.password == this.password) {
+                console.log("Pseudo et mot de passe corrects")
+                this.navCtrl.push(ChatPage, {
+                  username: this.username
+                });
+              } else {
+                this.showAlert('Error', 'Invalid Password');
+              }
             } else {
                 this.showAlert('Error', 'Invalid Username');
             }
