@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Contacts, Contact, ContactFieldType, ContactName } from '@ionic-native/contacts';
+// import { Contacts, Contact, ContactFieldType, ContactName } from '@ionic-native/contacts';
 
 
 // import { Observable } from 'rxjs';
@@ -30,11 +30,20 @@ export class ChatPage {
   // longitude: double;
   // distance: double;
   contactsFound = [];
+  tampon = [];
 
   constructor(public db: AngularFireDatabase, public navCtrl: NavController,
-    public navParams: NavParams, private contacts: Contacts) {
+    public navParams: NavParams) {
       console.log(this.navParams);
-      // this.fetchDeviceContact('');
+      // let key = this.db.list('/user/').push().key;
+      // console.log(key);
+      // this.db.database.ref('/user/').orderByChild('username').equalTo('to').once('value').then(snapshot => {
+      //   console.log(snapshot.val());
+      //   snapshot.forEach(user => {
+      //     this.tampon.push(snapshot.val());
+      //   });
+      // });
+      //this.db.list('/user/-LDCP5dBuTPpuMsY2zkp').remove();
       this.username = this.navParams.get('username');
       this.s = this.db.list('/chat/').valueChanges().subscribe( data => {
         this.messages = data;
@@ -54,30 +63,6 @@ export class ChatPage {
         // message is sent
       });
       this.message = '';
-    }
-
-    fetchDeviceContact(g){
-
-	 	var options = {
-		    filter : g,
-		    multiple:true,
-		    hasPhoneNumber:true
-		};
-
-    this.contacts.find(["displayName"], options).then((conts) => {
-      this.contactsFound = conts;
-      console.log(this.contactsFound);
-      for(var contact of this.contactsFound) {
-        console.log(contact);
-        this.db.list('/contacts').push({
-          // Ajouter le numéro de téléphone de la personne qui a le 06
-          number: contact.phoneNumbers,
-          name: contact.displayName,
-          }).then( () => {
-            // Contact ajouté
-          });
-        }
-      })
     }
 
     // convDeg2Rad(x) {
