@@ -7,10 +7,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ChatPage } from '../pages/chat/chat';
-// import { CartePage } from '../pages/carte/carte';
+import { CartePage } from '../pages/carte/carte';
 
 import { GoogleMaps} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Media, MediaObject } from '@ionic-native/media';
+import { Camera } from '@ionic-native/camera';
+import { MediaCapture, MediaFile } from '@ionic-native/media-capture';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -32,7 +36,7 @@ export const config = {
     MyApp,
     HomePage,
     ChatPage,
-    // CartePage,
+    CartePage,
   ],
   imports: [
     BrowserModule,
@@ -48,10 +52,13 @@ export const config = {
     MyApp,
     HomePage,
     ChatPage,
-    // CartePage,
+    CartePage,
   ],
   providers: [
     StatusBar,
+    Camera,
+    MediaCapture,
+    Media,
     SplashScreen,
     Contact,
     Contacts,

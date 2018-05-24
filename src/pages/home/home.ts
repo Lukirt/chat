@@ -38,31 +38,32 @@ export class HomePage {
       alertBox.present();
     }
 
-    loginUser(username) {
+    loginUser() {
       let accountArray = [];
-      this.dataBase.ref('/user/').orderByChild('username').equalTo(username).once('value').then(snapshot => {
+      console.log(this.username);
+      this.dataBase.ref('/user/').orderByChild('username').equalTo(this.username).once('value').then(snapshot => {
+      if(snapshot.val()==null) {
+        this.showAlert('Error', 'Invalid Username');
+      }
         snapshot.forEach(account => {
           accountArray.push(account.val());
         })
         for(var usrname of accountArray) {
-          // console.log(usrname.username);
-          // console.log(this.username);
-          // console.log(usrname.password);
-          // console.log(this.password);
-          if(usrname.username == this.username) {
-            if(usrname.password == this.password) {
-              console.log("Pseudo et mot de passe corrects")
-              this.ownNumber = usrname.number;
-              this.navCtrl.push(ChatPage, {
-                username: this.username,
-                ownNumber: this.ownNumber,
-              });
-            } else {
-              this.showAlert('Error', 'Invalid Password');
-            }
+          console.log(usrname.username);
+          console.log(this.username);
+          console.log(usrname.password);
+          console.log(this.password);
+
+          if(usrname.password == this.password) {
+            console.log("Pseudo et mot de passe corrects")
+            this.ownNumber = usrname.number;
+            this.navCtrl.push(ChatPage, {
+              username: this.username,
+              ownNumber: this.ownNumber,
+            });
           } else {
-              this.showAlert('Error', 'Invalid Username');
-          }
+            this.showAlert('Error', 'Invalid Password');
+            }
         }
       });
     }
