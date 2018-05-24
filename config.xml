@@ -83,5 +83,13 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.0.5" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <plugin name="cordova-plugin-firebase" spec="^1.0.5" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.3.4">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyD0bvgD9ZA0BtLjdA-O-Z7vYfv3NBKqVa8" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="26.1.0" />
+    </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
     <engine name="android" spec="7.0.0" />
 </widget>

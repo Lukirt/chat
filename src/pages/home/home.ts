@@ -52,8 +52,10 @@ export class HomePage {
           if(usrname.username == this.username) {
             if(usrname.password == this.password) {
               console.log("Pseudo et mot de passe corrects")
+              this.ownNumber = usrname.number;
               this.navCtrl.push(ChatPage, {
-                username: this.username
+                username: this.username,
+                ownNumber: this.ownNumber,
               });
             } else {
               this.showAlert('Error', 'Invalid Password');
