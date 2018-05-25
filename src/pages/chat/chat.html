@@ -29,12 +29,12 @@ Ionic pages and navigation.
       <!-- Tolérance de 0.01 correspondant à environ à 1km à Grenoble -->
       <div *ngIf="((latitude - message.latitude) < 0.01) && (-0.01 < (latitude - message.latitude)) && (-0.01 < (longitude - message.longitude)) && ((longitude - message.longitude) < 0.01)" [class]="message.username == username ? 'innerMessage messageRight' : 'innerMessage messageLeft'">
         <div *ngFor="let contact of contactsFound">
-          <div *ngIf="message.number == contact.number[0].value" [class]="message.username == username ? 'innerMessage messageRight' : 'innerMessage messageLeft'">
+          <div *ngIf="(message.number == contact.number[0].value)" [class]="message.username == username ? 'innerMessage messageRight' : 'innerMessage messageLeft'">
             <div class="contact">{{ message.username }}</div>
             <div class="contact">{{ message.message }}</div>
-            <!-- <div *ngIf="message.urlImage">
+            <div *ngIf="message.urlImage">
               <img src="{{message.urlImage}}" width="400" height="400">
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

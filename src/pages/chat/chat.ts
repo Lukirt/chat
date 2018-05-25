@@ -158,6 +158,7 @@ export class ChatPage {
 
 
       uploadImage(image) {
+        this.myDate = new Date();
         var storageRef = firebase.storage().ref();
         var imageRef = storageRef.child('images');
         let promise = new Promise((resolve, reject) => {
@@ -169,7 +170,12 @@ export class ChatPage {
                 this.db.list('/chat').push({
                   username : this.username,
                   urlImage : url,
-                  duree : this.myDate
+                  latitude: this.latitude,
+                  longitude: this.longitude,
+                  dEnvoi : this.myDate.valueOf()/1000,
+                  dSupp : (this.myDate.valueOf()/1000 + 86400),
+                  number: this.ownNumber
+
                 })
                 //imageRef.child('images').set(url);
                 resolve();
