@@ -19,11 +19,14 @@ declare var google;
   providers: [GoogleMaps],
   templateUrl: 'carte.html'
 })
+
 export class CartePage {
-  //public markers: Marker[];
+  public markers: Marker[];
   username : string = '';
   @ViewChild('map') mapElement :ElementRef;
   map: GoogleMap;
+  latLng;
+
   constructor(public navCtrl: NavController, public navParams : NavParams, public geolocation: Geolocation) {
     this.username = this.navParams.get('username');
  }
@@ -38,15 +41,16 @@ export class CartePage {
     this.geolocation.getCurrentPosition().then((position) => {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
       let mapOptions = {
-        center: latLng,
+        center: this.latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.addMarker(this.map);
 
     }, (err) => {
       console.log(err);
@@ -54,17 +58,25 @@ export class CartePage {
 
   }
 
+  addMarker(map:any){
+    let marker = new google.maps.Marker({
+      map: map,
+      animation: google.maps.Animation.DROP,
+      position: {lat : 39.5444623, lng : -0.4014199}
+    });
+  }
+
   // initMarkers() {
-  //   var mlt = {lat: -25.6, lng:131.5};
-  //   var marker = new google.maps.Marker({
-  //     position : mlt,
-  //     map : this.map,
-  //     title : this.username
-  //   })
-	// 	this.markers = [new Marker(pos,this.map,user),
-  //   new Marker()];
+  //   var pos = {lat: -25.6, lng:131.5};
+  //   // var marker = new google.maps.Marker({
+  //   //   position : mlt,
+  //   //   map : this.map,
+  //   //   title : this.username
+  //   // })
+	// 	this.markers.push(new Marker(this.map, pos));
 	// }
   //ca maaaaaarche
+
   // loadMap(){
   //
   // let latLng = new google.maps.LatLng(-34.9290, 138.6010);

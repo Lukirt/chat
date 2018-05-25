@@ -162,25 +162,27 @@ export class HomePage {
     // }
 
     //
-    // checkBdd() {
-    //   let messagesArray = [];
-    //   this.dataBase.ref('/chat/').orderByChild('username').equalTo('Toto').once('value').then(snapshot => {
-    //     snapshot.forEach(message => {
-    //       let msg = message.val();
-    //       messagesArray.push(msg);
-    //       console.log(messagesArray);
-    //     })
-    //     for(var int of messagesArray) {
-    //       console.log(int.message);
-    //     }
-    //   });
+    checkBdd() {
+      let messagesArray = [];
+      this.dataBase.ref('/chat/').orderByChild('username').equalTo(this.username).once('value').then(snapshot => {
+        snapshot.forEach(message => {
+          let msg = message.val();
+          messagesArray.push(msg);
+        })
+        for(var int of messagesArray) {
+          console.log(int.latitude);
+          console.log(int.longitude);
+          console.log(int.message);
+          console.log(int.username);
+        }
+      });
     //
-    //
-    //   query = events.orderByChild('username').equalTo('toto');
-    //   query.on('value', snap => {
-    //     console.log(snap.key);
-    //   }
-    // }
+
+      // query = events.orderByChild('username').equalTo('toto');
+      // query.on('value', snap => {
+      //   console.log(snap.key);
+      // }
+    }
 
 
 }

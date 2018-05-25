@@ -14,11 +14,14 @@
 
 <ion-content >
   <div #map id="map"></div>
-  <!-- <agm-marker
-    *ngFor="let m of markers"
-    (markerClick)="clickedMarker(m.label)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label">
-  </agm-marker> -->
+    <!-- <agm-map style="width: 100%; height: 100%;"
+      [latitude]="latLng.latitude"
+      [longitude]="latLng.longitude"
+      [zoom]="zoom">
+      <agm-marker
+        *ngFor="let m of markers"
+        [latitude]="m.pos.lat"
+        [longitude]="m.pos.lng">
+      </agm-marker>
+    </agm-map> -->
 </ion-content>
